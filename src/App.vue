@@ -13,10 +13,8 @@
               solo
             ></v-text-field>
 
-            {{ search }}
-
             <v-row>
-              <v-col cols="2" v-for="pokemon in pokemons.slice(0, 150)" :key="pokemon.name">
+              <v-col cols="2" v-for="pokemon in filtered_pokemons" :key="pokemon.name">
 
                 <v-card>
                   <v-container>
@@ -69,6 +67,14 @@ export default {
 
     get_name(pokemon) {
       return pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+    },
+  },
+
+  computed: {
+    filtered_pokemons() {
+      return this.pokemons.filter((item) => {
+        return item.name.includes(this.search.toLowerCase());
+      });
     },
   },
 
